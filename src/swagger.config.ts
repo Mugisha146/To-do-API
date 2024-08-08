@@ -22,7 +22,7 @@ const options = {
         description: "Local Development Server for Swagger",
       },
       {
-        url: "https://your-production-server.com",
+        url: "https://to-do-api-dgj1.onrender.com",
         description: "Production server (HTTPS)",
       },
     ],
@@ -236,7 +236,7 @@ const options = {
                     email: { type: "string" },
                     password: { type: "string" },
                   },
-                  required: ["firstName","lastName","email", "password"],
+                  required: ["firstName", "lastName", "email", "password"],
                 },
               },
             },
