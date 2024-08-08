@@ -5,13 +5,13 @@ import {
   updateUser,
   deleteUser,
 } from "../controllers/userController";
-import { authenticateToken } from "../middleware/auth";
+import { authenticateToken, restrictTo } from "../middleware/auth";
 
 const router = Router();
 
-router.get("/users", authenticateToken, getUsers);
-router.get("/users/me", authenticateToken, getUserById);
-router.patch("/users/me", authenticateToken, updateUser);
-router.delete("/users/me", authenticateToken, deleteUser);
+router.get("/users", authenticateToken, restrictTo(), getUsers);
+router.get("/user/:id", authenticateToken, getUserById);
+router.patch("/user/:id", authenticateToken, updateUser);
+router.delete("/user/:id", authenticateToken,restrictTo(), deleteUser);
 
 export default router;

@@ -1,9 +1,8 @@
 import { Model, DataTypes } from "sequelize";
 import sequelize from "../config/dbConfig";
-import bcrypt from "bcryptjs";
 
 class User extends Model {
-  public id!: number;
+  public id!: string;
   public firstName!: string;
   public lastName!: string;
   public email!: string;
@@ -15,9 +14,9 @@ class User extends Model {
 User.init(
   {
     id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+      type: DataTypes.STRING,
       primaryKey: true,
+      defaultValue: DataTypes.UUIDV4,
     },
     firstName: {
       type: DataTypes.STRING,

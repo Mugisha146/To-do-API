@@ -52,7 +52,7 @@ const options = {
       },
     ],
     paths: {
-      "/api/users/signup": {
+      "/api/signup": {
         post: {
           summary: "Create an account",
           tags: ["Authentication"],
@@ -63,16 +63,24 @@ const options = {
                 schema: {
                   type: "object",
                   properties: {
+                    firstName: {
+                      type: "string",
+                      example: "Mugisha",
+                    },
+                    lastName: {
+                      type: "string",
+                      example: "Emmanuel",
+                    },
                     email: {
                       type: "string",
-                      example: "user@example.com",
+                      example: "user@gmail.com",
                     },
                     password: {
                       type: "string",
                       example: "Password@123",
                     },
                   },
-                  required: ["email", "password"],
+                  required: ["firstName", "lastName", "email", "password"],
                 },
               },
             },
@@ -86,7 +94,10 @@ const options = {
                     type: "object",
                     properties: {
                       id: { type: "string" },
+                      firstName: { type: "string" },
+                      lastName: { type: "string" },
                       email: { type: "string" },
+                      token: { type: "string" },
                     },
                   },
                 },
@@ -98,7 +109,7 @@ const options = {
           },
         },
       },
-      "/api/users/login": {
+      "/api/login": {
         post: {
           summary: "Login to an account",
           tags: ["Authentication"],
@@ -111,7 +122,7 @@ const options = {
                   properties: {
                     email: {
                       type: "string",
-                      example: "user@example.com",
+                      example: "user@gmail.com",
                     },
                     password: {
                       type: "string",
@@ -131,6 +142,10 @@ const options = {
                   schema: {
                     type: "object",
                     properties: {
+                      id: { type: "string" },
+                      firstName: { type: "string" },
+                      lastName: { type: "string" },
+                      email: { type: "string" },
                       token: { type: "string" },
                     },
                   },
@@ -143,7 +158,7 @@ const options = {
           },
         },
       },
-      "/api/users/logout": {
+      "/api/logout": {
         post: {
           summary: "Logout from an account",
           tags: ["Authentication"],
@@ -169,6 +184,8 @@ const options = {
                       type: "object",
                       properties: {
                         id: { type: "string" },
+                        firstName: { type: "string" },
+                        lastName: { type: "string" },
                         email: { type: "string" },
                       },
                     },
@@ -179,7 +196,7 @@ const options = {
           },
         },
       },
-      "/api/users/me": {
+      "/api/user/{id}": {
         get: {
           summary: "Get current user",
           tags: ["Authentication"],
@@ -192,6 +209,8 @@ const options = {
                     type: "object",
                     properties: {
                       id: { type: "string" },
+                      firstName: { type: "string" },
+                      lastName: { type: "string" },
                       email: { type: "string" },
                     },
                   },
@@ -212,10 +231,12 @@ const options = {
                 schema: {
                   type: "object",
                   properties: {
+                    firstName: { type: "string" },
+                    lastName: { type: "string" },
                     email: { type: "string" },
                     password: { type: "string" },
                   },
-                  required: ["email", "password"],
+                  required: ["firstName","lastName","email", "password"],
                 },
               },
             },
@@ -233,6 +254,8 @@ const options = {
                         type: "object",
                         properties: {
                           id: { type: "string" },
+                          firstName: { type: "string" },
+                          lastName: { type: "string" },
                           email: { type: "string" },
                         },
                       },
@@ -277,7 +300,7 @@ const options = {
                     items: {
                       type: "object",
                       properties: {
-                        id: { type: "integer", example: 1 },
+                        id: { type: "string", example: 1 },
                         title: { type: "string", example: "Buy groceries" },
                         description: {
                           type: "string",
@@ -325,7 +348,7 @@ const options = {
                   schema: {
                     type: "object",
                     properties: {
-                      id: { type: "integer" },
+                      id: { type: "string" },
                       title: { type: "string" },
                       description: { type: "string" },
                       completed: { type: "boolean" },
@@ -355,7 +378,7 @@ const options = {
               in: "path",
               required: true,
               schema: {
-                type: "integer",
+                type: "string",
               },
             },
           ],
@@ -387,7 +410,7 @@ const options = {
                   schema: {
                     type: "object",
                     properties: {
-                      id: { type: "integer" },
+                      id: { type: "string" },
                       title: { type: "string" },
                       description: { type: "string" },
                       completed: { type: "boolean" },
@@ -418,7 +441,7 @@ const options = {
               in: "path",
               required: true,
               schema: {
-                type: "integer",
+                type: "string",
               },
             },
           ],

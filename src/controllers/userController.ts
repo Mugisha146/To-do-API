@@ -16,6 +16,10 @@ export const getUserById = async (req: Request, res: Response) => {
   try {
     const userId = req.user?.id;
 
+    if (!userId) {
+      return res.status(400).json({ message: "No user ID provided" });
+    }
+
     const user = await User.findByPk(userId);
 
     if (!user) {
@@ -28,18 +32,19 @@ export const getUserById = async (req: Request, res: Response) => {
   }
 };
 
+
 export const updateUser = async (req: Request, res: Response) => {
   try {
     const userId = req.user?.id;
-    const { email, password } = req.body;
+    const { firstName, lastName,email, password } = req.body;
 
-    if (!email || !password) {
-      return res.status(400).json({ message: "Email & Password is required" });
+    if (!firstName||!lastName||!email || !password) {
+      return res.status(400).json({ message: "Fill all field is required" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.update(
-      { email, password: hashedPassword },
+      { firstName, lastName, email, password: hashedPassword },
       { where: { id: userId }, returning: true }
     );
     if (!user[1][0]) {

@@ -18,7 +18,7 @@ export const generateToken = (user: any) => {
   if (!secret) {
     throw new Error("JWT_SECRET is not defined");
   }
-  return jwt.sign({ id: user._id }, secret, { expiresIn: "1h" });
+  return jwt.sign({ id: user.id }, secret, { expiresIn: "1h" });
 };
 
 export const authenticateToken = (
@@ -43,4 +43,17 @@ export const authenticateToken = (
   } else {
     res.sendStatus(401);
   }
+};
+
+export const restrictTo = () => {
+  return (req: Request, res: Response, next: NextFunction) => {
+
+    if (req.user.id === process.env.ADIMN) {
+      next();
+    } else {
+      return res.status(403).json({
+        message: "You are not authorized to perform this action",
+      });
+    }
+  };
 };
